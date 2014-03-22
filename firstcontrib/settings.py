@@ -24,6 +24,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django.contrib.flatpages',
+    'django.contrib.sites',
+
     'south',
 )
 

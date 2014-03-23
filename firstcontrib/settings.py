@@ -27,6 +27,8 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.sites',
 
+    'crispy_forms',
+
     'south',
 )
 
@@ -67,6 +69,9 @@ SITE_ID = 1
 TEMPLATE_DIRS = {
     os.path.join(BASE_DIR, 'templates'),
 }
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 ## HEROKU

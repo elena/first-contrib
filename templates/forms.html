@@ -7,7 +7,10 @@
 {% endblock %}
 
 {% block content %}
+
 <form action="{{ request.path }}" method="post" class="form-inline well">
+      <p>Minimal details are required, this is to share annecdotes and experiences so new Free Software contributors can get the idea that everyone started somewhere.</p>
+      <hr>
   {% csrf_token %}
   {% crispy form %}
   <fieldset>
@@ -18,5 +21,8 @@
     </div>
   </fieldset>
 </form>
+<hr>
+      <p class="lead">Thank you!</p>
+      <p>Identification details are necessary to validate stories and they will be moderated. Any identifying details will not be harvested for use in any other purpose other than the website you see here. Being a jerk will not be tolerated, but a little bit of silliness may be.</p>
 
 {% endblock %}

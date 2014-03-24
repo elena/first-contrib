@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<form action="{{ request.path }}" method="post" class="form-inline well">
+  {% csrf_token %}
+  {% crispy form %}
+  <fieldset>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Save changes</button>
+      <button type="reset" class="btn">Cancel</button>
+    </div>
+  </fieldset>
+</form>
+
+{% endblock %}

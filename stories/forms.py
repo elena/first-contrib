@@ -71,15 +71,22 @@ class StoryForm(forms.ModelForm):
         self.helper.form_class = 'form-inline'
         self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = layout.Layout(
-            Fieldset('What year did you make your first contribution?',
+            Fieldset('What year did you make your first contribution? (approximately)',
                 Field('year'),
                 Field('month'),
+                #layout.HTML('<br /><br />'),
                 Field('project', css_class='part-width'),
-                layout.HTML('<br /><br />'),
+                #Field('project_description', css_class='full-width'),
+            # ),
+            # Fieldset('What form of Version Control did you use?',
+                layout.HTML('<br />'),
                 Field('vcs'),
+                #layout.HTML('<br />'),
                 layout.HTML('<br /><br />'),
+                # 'vcs_other',
             ),
             Fieldset('About you',
+                layout.HTML('''<p><strong>All fields are optional.</strong> No information provided here will be redistributed or used for any other purpose than displaying on this website.<br />Although your story nearly certainly won't pass moderation if you don't give us an idea of who you are.</p>'''),
                 Field('preferred_name', css_class='part-width'),
                 Field('full_name', css_class='part-width'),
                 layout.HTML('<br />'),
@@ -88,6 +95,8 @@ class StoryForm(forms.ModelForm):
                 layout.HTML('<div>&nbsp;</div>'),
                 Field('website', css_class='full-width'),
                 Field('other', css_class='full-width'),
+                # ),
+                # Fieldset(' ',
                 layout.HTML('<div>&nbsp;</div>'),
                 Field('known_as_1', placeholder="BDFL, core, contributor"),
                 Field('for_project_1', placeholder="for Project/s"),
@@ -102,7 +111,26 @@ class StoryForm(forms.ModelForm):
                 Field('skill_vcs'),
                 layout.HTML('<br /><br />'),
             ),
-            Fieldset('Story about the experience (why, how much work, who was involved, annecdotes):',
+            Fieldset('Story about the experience',
+                layout.HTML('<p><strong>Why</strong> did you get involved? How much work was involved (hopefully not much for your first commit!)?<br>'),
+                layout.HTML('How did you get in contact with the project? Who was involved? Did anything interesting happen?<br>'),
+                layout.HTML('Why did you keep contributing?</p>'),
                 'experience',
             ),
         )
+
+
+    # def clean(self, *args, **kwargs):
+    #     clean_data = super(PersonPollForm, self).clean(*args, **kwargs)
+
+    #     # check name unique
+    #     name = clean_data.get('name')
+    #     person = Person.objects.filter(name=name)
+    #     if person:
+    #         raise forms.ValidationError('Yo, that name is taken ~')
+
+    #     # check event exists
+    #     event = Event.objects.filter(current=True)
+    #     if not event:
+    #         raise forms.ValidationError("Hey! There aren't any current events. Go tell an organiser to activate an event.")
+    #     return clean_data

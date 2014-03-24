@@ -28,6 +28,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 
     'crispy_forms',
+    'honeypot',
 
     'south',
     'stories',
@@ -39,6 +40,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'honeypot.middleware.HoneypotResponseMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
@@ -71,6 +73,7 @@ TEMPLATE_DIRS = {
     os.path.join(BASE_DIR, 'templates'),
 }
 
+HONEYPOT_FIELD_NAME = 'phone_email'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 

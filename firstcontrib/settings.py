@@ -27,6 +27,7 @@ INSTALLED_APPS = (
     'django.contrib.flatpages',
     'django.contrib.sites',
 
+    'ckeditor',
     'crispy_forms',
     'honeypot',
 
@@ -77,6 +78,14 @@ HONEYPOT_FIELD_NAME = 'phone_email'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, 'media')
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Basic',
+        'height': 300,
+        'width': 650,
+    },
+}
 
 ## HEROKU
 

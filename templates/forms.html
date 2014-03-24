@@ -2,6 +2,9 @@
 {% load crispy_forms_tags %}
 {% load honeypot %}
 
+{% block extrahead %}
+<script type="text/javascript" src="{{ STATIC_URL }}ckeditor/ckeditor.js"></script>
+{% endblock %}
 
 {% block content %}
 <form action="{{ request.path }}" method="post" class="form-inline well">

@@ -1,2 +1,10 @@
 *.pyc
 staticfiles
+staticfiles/admin
+firstcontrib/static/ckeditor
+*#*
+.#*
+*~
+.DS_Store
+db.sqlite3
+*bootstrap.min.css

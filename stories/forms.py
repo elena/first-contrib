@@ -4,43 +4,56 @@ from stories.models import Story
 from crispy_forms import helper, layout
 from ckeditor.widgets import CKEditorWidget
 from crispy_forms.bootstrap import PrependedText
-from crispy_forms.layout import Fieldset, Field
+from crispy_forms.layout import Fieldset, Field, ButtonHolder, Button, Submit
 
+NONE_TEXT = ' ---'
 
 class StoryForm(forms.ModelForm):
 
-    project = forms.CharField(required=False, label="Project Name or Description",
+    project = forms.CharField(required=False,
+        label="Project Name or Description",
         help_text="The first project you contributed to.",
     )
     project_description = forms.CharField(required=False,
         help_text="Just a quick description, in case the project isn't famous."
     )
-    vcs = forms.ChoiceField(required=False, label="Version Control Used",
-        choices = [('', '-')]+Story.CHOICES_VCS,
+    vcs = forms.MultipleChoiceField(
+        widget=forms.SelectMultiple(), choices = Story.CHOICES_VCS,
+        required=False, label="Version Control Used",
     )
-    year = forms.ChoiceField(required=False, help_text="(approximately)",
-        choices = [('', '-')]+[(year, year) for year in xrange(2013, 1959, -1)],
+    comms = forms.MultipleChoiceField(
+        widget=forms.SelectMultiple(), choices = Story.CHOICES_COMMS,
+        required=False, label="Communication Methods",
+    )
+    vcs_other = forms.CharField(required=False, label='',
+        widget=forms.TextInput(attrs={'placeholder': "Other: SCCS, RSC"})
+    )
+    comms_other = forms.CharField(required=False, label='',
+        widget=forms.TextInput(attrs={'placeholder': "Other"})
+    )
+    year = forms.ChoiceField(required=False, help_text="&nbsp;",
+        choices = [('', NONE_TEXT)]+[(year, year) for year in xrange(2013, 1959, -1)],
     )
     month = forms.ChoiceField(required=False, help_text="&nbsp;",
-        choices = [('', '-')]+zip(xrange(0,13), list(calendar.month_name)),
+        choices = [('', NONE_TEXT)]+zip(xrange(0,13), list(calendar.month_name)),
     )
-    experience = forms.CharField(
+    experience = forms.CharField(required=False,
         #placeholder="Why? How much work? Who did you talk to?",
         widget=CKEditorWidget()
     )
     skill_professional = forms.ChoiceField(required=False,
         label = "Professional",
-        choices = [('', '-')]+Story.CHOICES_ASSESS,
+        choices = [('', NONE_TEXT)]+Story.CHOICES_ASSESS,
         help_text = "Professional experience",
     )
     skill_language = forms.ChoiceField(required=False,
         label = "Technical",
-        choices = [('', '-')]+Story.CHOICES_ASSESS,
+        choices = [('', NONE_TEXT)]+Story.CHOICES_ASSESS,
         help_text = "Ability with skills required"
     )
     skill_vcs = forms.ChoiceField(required=False,
         label = "Version Control",
-        choices = [('', '-')]+Story.CHOICES_ASSESS,
+        choices = [('', NONE_TEXT)]+Story.CHOICES_ASSESS,
         help_text = "Knowledge of VCS used",
     )
 
@@ -53,14 +66,13 @@ class StoryForm(forms.ModelForm):
         label = "Another URL",
     )
     known_as_1 = forms.CharField(required=False, label="Known as",
-        widget=forms.TextInput(attrs={'plagceholder': "BDFL, core, contributor"})
+        widget=forms.TextInput(attrs={'placeholder': "BDFL, core, contributor"})
     )
     for_project_1 = forms.CharField(required=False, label="for Project/s")
     known_as_2 = forms.CharField(required=False, label="Known as",
         widget=forms.TextInput(attrs={'placeholder': "BDFL, core, contributor"})
     )
     for_project_2 = forms.CharField(required=False, label="for Project/s")
-
 
     class Meta:
         model = Story
@@ -81,7 +93,10 @@ class StoryForm(forms.ModelForm):
             # Fieldset('What form of Version Control did you use?',
                 layout.HTML('<br />'),
                 Field('vcs'),
-                #layout.HTML('<br />'),
+                Field('comms'),
+                layout.HTML('<br />'),
+                Field('vcs_other'),
+                Field('comms_other'),
                 layout.HTML('<br /><br />'),
                 # 'vcs_other',
             ),
@@ -101,8 +116,8 @@ class StoryForm(forms.ModelForm):
                 Field('known_as_1', placeholder="BDFL, core, contributor"),
                 Field('for_project_1', placeholder="for Project/s"),
                 layout.HTML('<br />'),
-                Field('known_as_2', placeholder="BDFL, core, contributor"),
-                Field('for_project_2', placeholder="for Project/s"),
+                'known_as_2',
+                'for_project_2',
                 layout.HTML('<br /><br /><br />'),
             ),
             Fieldset('"Self Assessed" skill level the first time you contributed to Free Software:',
@@ -117,11 +132,29 @@ class StoryForm(forms.ModelForm):
                 layout.HTML('Why did you keep contributing?</p>'),
                 'experience',
             ),
+            ButtonHolder(
+                Button('preview', 'Preview', css_class='preview btn btn-primary'),
+                Submit('submit', 'Submit', css_class='btn btn-primary'),
+                Button('reset', 'Cancel', css_class='btn')
+            )
         )
 
 
-    # def clean(self, *args, **kwargs):
-    #     clean_data = super(PersonPollForm, self).clean(*args, **kwargs)
+    def clean(self, *args, **kwargs):
+        clean_data = super(StoryForm, self).clean(*args, **kwargs)
+        for k,v in clean_data.iteritems():
+            if v == u'':
+                clean_data[k] = None
+                #raise Exception(clean_data)
+
+        if clean_data['vcs']:
+            clean_data['vcs'] = ', '.join(clean_data['vcs'])
+
+        if clean_data['comms']:
+            clean_data['comms'] = ', '.join(clean_data['comms'])
+
+        return clean_data
+
 
     #     # check name unique
     #     name = clean_data.get('name')

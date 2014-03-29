@@ -1,0 +1,115 @@
+@media screen and (min-width: 992px) {
+    .the-icons li {
+        width: 12.5%;
+    }
+}
+
+.the-buttons > li {
+    float: left;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    line-height: 1.25;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 -1px -1px 0;
+}
+
+.the-icons .glyphicon {
+    display: block;
+    margin: 5px auto;
+    vertical-align: middle;
+    margin-right: 3px;
+    font-size: 24px;
+}
+
+.the-icons li {
+    float: left;
+    width: 100px;
+    height: 110px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    line-height: 1.25;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.the-icons, .the-buttons {
+    list-style:none;
+}
+
+.the-icons .glyphicon {
+    display:inline;
+}
+
+.navbar h1 {
+    font-family: 'PT Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.navbar-toggle {
+    border: 1px solid #ccc;
+    margin-top: 16px;
+    height: 30px;
+    width: 30px;
+    background-color: #FCFCFC;
+}
+
+.navbar-toggle:before {
+    content: "=";
+    position: absolute;
+    top: -2px;
+    left: 8px;
+    color: #DAD5D5;
+    font-size: 20px;
+}
+
+#body-container {max-width: 946px; margin: 0 auto}
+form.well {max-width: 946px;}
+.full-width {width: 650px;}
+.form-inline input.form-control {width: 255px;}
+.form-inline input.part-width {width: 450px;}
+.form-inline select.selectmultiple {
+    height: 7em;
+    width: 255px;
+}
+
+.radioselect {display: inline;}
+ul {list-style-type: none;}
+#id_vcs label, #id_vcs input {display: inline; width: 20px; padding: 0; margin:0;}
+
+#id_twitter,
+#id_github,
+#id_known_as_1,
+#id_for_project_1,
+#id_known_as_2,
+#id_for_project_2,
+select.form-control {width:auto;}
+
+#div_id_github,
+#div_id_twitter {
+    width: 30%;
+}
+
+@media (min-width: 768px)
+input.full-width {width: 650px;}
+input.part-width {width: 450px;}
+.form-inline .part-width {
+    width: 450px;
+}
+.form-actions {padding: 0 20px;}
+
+#preview {
+    padding: 20px;
+    margin: 30px;
+}
+#submit-id-submit{background-color: #da8c8c; border: 1px solid #B86565;}

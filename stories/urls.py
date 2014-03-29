@@ -4,5 +4,5 @@ from stories import views
 
 
 urlpatterns = patterns('',
-    url(r'^$', views.StoryAddView.as_view(), name='story_list'),
+    url(r'^$', views.StoryAddView.as_view(), name='story_add'),
 )

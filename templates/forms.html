@@ -8,21 +8,33 @@
 
 {% block content %}
 
-<form action="{{ request.path }}" method="post" class="form-inline well">
+<form id="story_form" action="{{ request.path }}" method="post" class="form-inline">
       <p>Minimal details are required, this is to share annecdotes and experiences so new Free Software contributors can get the idea that everyone started somewhere.</p>
       <hr>
   {% csrf_token %}
   {% crispy form %}
   <fieldset>
-
-    <div class="form-actions">
-      <button type="submit" class="btn btn-primary">Save changes</button>
-      <button type="reset" class="btn">Cancel</button>
+    <div id="preview">
     </div>
   </fieldset>
+
 </form>
 <hr>
-      <p class="lead">Thank you!</p>
-      <p>Identification details are necessary to validate stories and they will be moderated. Any identifying details will not be harvested for use in any other purpose other than the website you see here. Being a jerk will not be tolerated, but a little bit of silliness may be.</p>
+<p class="lead">Thank you!</p>
+<p>Identification details are necessary to validate stories and they will be moderated. Any identifying details will not be harvested for use in any other purpose other than the website you see here. Being a jerk will not be tolerated, but a little bit of silliness may be.</p>
+<hr>
+<p>This is just a dumb form that saves the data to a database. If you are worried about what this form will do the source is available here.</p>
+<p>The submissions will be curated, listed and shown-off to some of the budding new contributors out there.</p>
 
+{% endblock %}
+
+{% block extrascripts %}
+  <script type='text/javascript'>
+    var editor = CKEDITOR.instances.id_experience;
+
+    $('#button-id-preview').click(function(){
+        var data = editor.getData();
+        $('#preview').html(data);
+    });
+  </script>
 {% endblock %}
